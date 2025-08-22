@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Craft</title>
+  <style>
+    :root {
+      --rosa: #ff6b81;
+      --rosa-claro: #ffe3ec;
+      --gris: #333;
+      --fondo: #faf7f9;
+      --blanco: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--fondo);
+      color: var(--gris);
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--rosa);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      color: var(--rosa);
+      margin-bottom: 20px;
+    }
+
+    .about p,
+    .contact p,
+    .payment ul {
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .products .product {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .products img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-right: 20px;
+      border: 2px solid var(--rosa-claro);
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-info h3 {
+      margin: 0;
+      color: var(--rosa);
+    }
+
+    .product-info input {
+      width: 60px;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #total {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: var(--rosa);
+    }
+
+    #pay-btn {
+      display: block;
+      background: var(--rosa);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 16px;
+      margin: 20px auto;
+      cursor: pointer;
+    }
+
+    .payment ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 18px;
+    }
+
+    .payment li {
+      margin: 10px 0;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .contact-form button {
+      margin-top: 15px;
+      background: var(--rosa);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .info-extra {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .info-extra a {
+      color: var(--rosa);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .products .product {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .products img {
+        margin-bottom: 10px;
+      }
+
+      nav {
+        gap: 15px;
+      }
+    }
+
+    /* Responsive menú hamburguesa */
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  padding: 0 20px;
+  cursor: pointer;
+  position: absolute;
+  left: 10px;
+  top: 15px;
+}
+
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background: var(--rosa);
+    padding: 20px;
+    gap: 15px;
+  }
+
+  nav.active {
+    display: flex;
+  }
+}
+
+  </style>
+</head>
+<body>
+    <!-- Pantalla de bienvenida -->
+<div id="welcome-screen" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #ff6b81;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+">
+  <h1 style="font-size: 60px; margin-bottom: 20px;">🎀 Craft</h1>
+  <button onclick="enterSite()" style="
+    padding: 14px 28px;
+    background: white;
+    color: #ff6b81;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  ">Entrar</button>
+  
+</div>
+
+<script>
+  function enterSite() {
+    document.getElementById('welcome-screen').style.display = 'none';
+  }
+</script>
+
+
+  <!-- Menú -->
+  <header>
+    <button id="menu-toggle" aria-label="Menú">☰</button>
+  <nav id="nav">
+    <a href="#quienes">Quiénes somos</a>
+    <a href="#productos">Qué vendemos</a>
+    <a href="#pago">Formas de pago</a>
+    <a href="#pedido">Tu pedido</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  </header>
+
+  <!-- Sección Quiénes somos -->
+  <section id="quienes" class="about">
+    <h2>🌟 ¿Quiénes somos?</h2>
+    <p>
+      Somos un grupo de estudiantes con un proyecto solidario: vender y donar <strong>juguetes, anillos y collares</strong> hechos a mano con materiales reciclados. Buscamos ayudar a niños en hospitales, en la calle o en situaciones vulnerables.<br><br>
+      ♻️ También cuidamos el medio ambiente: reciclamos botellas plásticas y evitamos que terminen contaminando la naturaleza.
+    </p>
+  </section>
+
+  <!-- Sección Productos -->
+  <section id="productos" class="products">
+    <h2>🧸 Qué vendemos</h2>
+
+    <div class="product">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_904614-MLA85646376679_062025-O.webp" alt="Juguete">
+      <div class="product-info">
+        <h3>Juguete</h3>
+        <p>Precio: $7.50</p>
+        <input type="number" min="0" value="0" data-price="7.5" class="quantity">
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://http2.mlstatic.com/D_789746-MLA86618795697_062025-O.jpg" alt="Collar">
+      <div class="product-info">
+        <h3>Collar</h3>
+        <p>Precio: $12.00</p>
+        <input type="number" min="0" value="0" data-price="12" class="quantity">
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://www.impresoras3d.com/wp-content/uploads/2020/02/header_joyeria_impresoras3d.jpg" alt="Anillo">
+      <div class="product-info">
+        <h3>Anillo</h3>
+        <p>Precio: $6.00</p>
+        <input type="number" min="0" value="0" data-price="6" class="quantity">
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_852557-MLA82457833884_022025-O.webp" alt="Arito">
+      <div class="product-info">
+        <h3>Arito</h3>
+        <p>Precio: $5.00</p>
+        <input type="number" min="0" value="0" data-price="5" class="quantity">
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Pedido -->
+  <section id="pedido">
+    <h2>🛒 Tu pedido</h2>
+    <div id="total">Total: $0.00</div>
+    <button id="pay-btn">💖 Pagar</button>
+  </section>
+
+  <!-- Sección Formas de pago -->
+  <section id="pago" class="payment">
+    <h2>💳 Formas de pago</h2>
+    <ul>
+      <li>💵 Efectivo</li>
+      <li>🏦 Transferencia Bancaria</li>
+      <li>📱 Mercado Pago</li>
+      <li>💳 Tarjeta Débito / Crédito</li>
+    </ul>
+  </section>
+
+  <!-- Sección Contacto -->
+  <section id="contacto" class="contact">
+    <h2>📩 Contacto</h2>
+    <form class="contact-form">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="message">Mensaje:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">Enviar mensaje</button>
+    </form>
+
+    <div class="info-extra">
+      <p>📧 <strong>Email:</strong> <a href="mailto:kbarrionuevo@escuelasproa.edu.ar">kbarrionuevo@escuelasproa.edu.ar</a></p>
+      <p>📱 <strong>Teléfono:</strong> <a href="tel:+543543515948">3543 515948</a></p>
+    </div>
+  </section>
+
+  <!-- Script -->
+  <script>
+    const quantities = document.querySelectorAll('.quantity');
+    const totalDisplay = document.getElementById('total');
+    const payBtn = document.getElementById('pay-btn');
+
+    function updateTotal() {
+      let total = 0;
+      quantities.forEach(input => {
+        const price = parseFloat(input.dataset.price);
+        const quantity = parseInt(input.value) || 0;
+        total += price * quantity;
+      });
+      totalDisplay.textContent = 'Total: $' + total.toFixed(2);
+      return total.toFixed(2);
+    }
+
+    quantities.forEach(input => {
+      input.addEventListener('input', updateTotal);
+    });
+
+    payBtn.addEventListener('click', () => {
+      const total = updateTotal();
+      if (parseFloat(total) > 0) {
+        alert(`¡Gracias por tu compra! El total es $${total}. Te contactaremos para el pago.`);
+      } else {
+        alert("Por favor, seleccioná algún producto.");
+      }
+    });
+  </script>
+</body>
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav');
+
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+</script>
+
+</html>
